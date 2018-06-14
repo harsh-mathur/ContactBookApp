@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.harsh.app.service.ContactBookService;
+import com.harsh.app.util.ContactBookUtil;
 import com.harsh.app.vo.ContactVO;
 import com.harsh.app.vo.Message;
 
@@ -28,12 +29,14 @@ public class ContactBookController {
 		
 		Message message = null;
 		try {
+			ContactBookUtil.validateParams(request);
+			
 			contactBookService.addNewContact(request);
 			
 			message = new Message("CONTACT CREATED");
 			return new ResponseEntity<Message>(message, HttpStatus.CREATED);
 		} catch (Exception e) {
-			message = new Message("ERROR OCCURED");
+			message = new Message("ERROR OCCURED" + e.getMessage());
 			return new ResponseEntity<Message>(message, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 		
@@ -52,7 +55,7 @@ public class ContactBookController {
 			
 			return new ResponseEntity<Object>(contacts, HttpStatus.OK);
 		} catch (Exception e) {
-			message = new Message("ERROR OCCURED");
+			message = new Message("ERROR OCCURED" + e.getMessage());
 			return new ResponseEntity<Object>(message, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 		
@@ -72,7 +75,7 @@ public class ContactBookController {
 			
 			return new ResponseEntity<Object>(contacts, HttpStatus.OK);
 		} catch (Exception e) {
-			message = new Message("ERROR OCCURED");
+			message = new Message("ERROR OCCURED" + e.getMessage());
 			return new ResponseEntity<Object>(message, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 		
@@ -92,7 +95,7 @@ public class ContactBookController {
 			
 			return new ResponseEntity<Object>(contacts, HttpStatus.OK);
 		} catch (Exception e) {
-			message = new Message("ERROR OCCURED");
+			message = new Message("ERROR OCCURED" + e.getMessage());
 			return new ResponseEntity<Object>(message, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 		
@@ -108,7 +111,7 @@ public class ContactBookController {
 			message = new Message("CONTACT DELETED");
 			return new ResponseEntity<Message>(message, HttpStatus.OK);
 		} catch (Exception e) {
-			message = new Message("ERROR OCCURED");
+			message = new Message("ERROR OCCURED" + e.getMessage());
 			return new ResponseEntity<Message>(message, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
@@ -119,12 +122,14 @@ public class ContactBookController {
 		
 		Message message = null;
 		try {
+			ContactBookUtil.validateParams(request);
+			
 			contactBookService.updateContact(request);
 			
 			message = new Message("CONTACT UPDATED");
 			return new ResponseEntity<Message>(message, HttpStatus.OK);
 		} catch (Exception e) {
-			message = new Message("ERROR OCCURED");
+			message = new Message("ERROR OCCURED" + e.getMessage());
 			return new ResponseEntity<Message>(message, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 		

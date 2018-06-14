@@ -10,6 +10,20 @@ import com.harsh.app.vo.PhoneVO;
 
 public class ContactBookUtil {
 
+	public static void validateParams(ContactVO contact) throws Exception {
+		if(contact == null) {
+			throw new Exception("No data provided");
+		}
+		
+		if(contact.getName() == null || contact.getName().isEmpty()) {
+			throw new Exception("No name provided");
+		}
+		
+		if(contact.getEmail() == null || contact.getEmail().isEmpty()) {
+			throw new Exception("No email provided");
+		}
+	}
+	
 	public static ContactVO getVOfromEntity(ContactEntity contactDB) {
 		ContactVO contact = new ContactVO();
 		contact.setName(contactDB.getName());
